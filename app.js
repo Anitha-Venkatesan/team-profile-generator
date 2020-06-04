@@ -154,8 +154,10 @@ async function getNumberOfEmployees() {
   const renderHtml = render(employeeArray);
   fs.appendFileSync(outputPath,renderHtml);  
 }
-
-
-
-
+try {
+  fs.unlinkSync('./output/team.html');
+  console.log('successfully deleted /output/team.html');
+} catch (err) {
+  // handle the error
+}
 getNumberOfEmployees();
