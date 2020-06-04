@@ -5,12 +5,6 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const lodash = require("lodash");
-
-
-const templatesDir = path.resolve(__dirname, "../templates");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-
 const render = require("./lib/htmlRenderer");
 
 
@@ -150,9 +144,16 @@ async function getNumberOfEmployees() {
         break;
     }
   }
-
+  const OUTPUT_DIR = path.resolve(__dirname, "output");
+  const outputPath = path.join(OUTPUT_DIR, "team.html");
   const renderHtml = render(employeeArray);
   fs.appendFileSync(outputPath,renderHtml);  
+}
+
+var dir = './output';
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
 }
 try {
   fs.unlinkSync('./output/team.html');
