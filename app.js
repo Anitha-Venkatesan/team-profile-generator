@@ -6,6 +6,8 @@ const path = require("path");
 const fs = require("fs");
 const lodash = require("lodash");
 
+
+const templatesDir = path.resolve(__dirname, "../templates");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -14,8 +16,9 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-let employeeArray=[];
-inquirer
+
+async function getInputsFromUser() {
+  const response = await inquirer
   .prompt([       
     {
       type: "list",
@@ -23,183 +26,136 @@ inquirer
       name: "role",
       choices : ["Engineer","Intern","Manager"]
     }
-    ]).then(function(response) {
-      switch(response.role) {
-        case "Engineer" :
-           inquirer
-           .prompt([
-            {
-              type: "input",
-              message: "What is your name as an employee?",
-              name: "name",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                 return "Employee name is required.";
-                }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your id as an employee?",
-              name: "id",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                 return "Employee id is required.";
-                }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your GitHub user name as an employee?",
-              name: "github",
-              validate: (input) => {
-               if (lodash.isEmpty(input)) {
-                return "Employee github user name  is required.";
-              }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your email id as an employee?",
-              name: "email",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                return "Employee email id is required.";
-              }
-              return true;
-              }
-            },
-          ]).then (function (engineerResponse){
-             console.log(engineerResponse);
-             let newEngineer = new Engineer(engineerResponse.name,engineerResponse.id,engineerResponse.github,engineerResponse.email);
-             console.log(newEngineer);
-             employeeArray.push(newEngineer);
-             });
-             break;
-       case "Intern" :
-           inquirer
-           .prompt([
-            {
-              type: "input",
-              message: "What is your name as an employee?",
-              name: "name",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                 return "Employee name is required.";
-                }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your id as an employee?",
-              name: "id",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                 return "Employee id is required.";
-                }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your school name as an employee?",
-              name: "school",
-              validate: (input) => {
-               if (lodash.isEmpty(input)) {
-                return "Employee school name  is required.";
-              }
-              return true;
-              }
-            },
-            {
-              type: "input",
-              message: "What is your email id as an employee?",
-              name: "email",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                return "Employee email id is required.";
-              }
-              return true;
-              }
-            },
-          ]).then (function (internResponse){
-              console.log(internResponse);
-              let newIntern = new Intern(internResponse.name,internResponse.id,internResponse.school,internResponse.email);
-              console.log(newIntern);
-              employeeArray.push(newIntern);
-             });
-             break;
-       case "Manager" :
-          inquirer
-          .prompt([
-             {
-               type: "input",
-               message: "What is your name as an employee?",
-               name: "name",
-               validate: (input) => {
-                  if (lodash.isEmpty(input)) {
-                    return "Employee name is required.";
-                  }
-                return true;
-                }
-             },
-             {
-              type: "input",
-              message: "What is your id as an employee?",
-              name: "id",
-              validate: (input) => {
-                if (lodash.isEmpty(input)) {
-                 return "Employee id is required.";
-                }
-              return true;
-              }
-            },
-             {
-                type: "input",
-                message: "What is your office number as an employee?",
-                name: "officeNumber",
-                validate: (input) => {
-                  if (lodash.isEmpty(input)) {
-                    return "Employee office number  is required.";
-                  }
-                return true;
-                }
-              },
-              {
-                type: "input",
-                message: "What is your email id as an employee?",
-                name: "email",
-                validate: (input) => {
-                  if (lodash.isEmpty(input)) {
-                    return "Employee email id is required.";
-                  }
-                return true;
-                }
-              },
-          ]).then (function (managerResponse){
-              console.log(managerResponse);
-              let newManager = new Manager(managerResponse.name,managerResponse.id,managerResponse.officeNumber,managerResponse.email);
-              console.log(newManager);
-              employeeArray.push(newManager);
-            }); 
-    }  
-  }).then(async function(data) {
-    try{
-      const renderHtml = await render(employeeArray); 
-      console.log(renderHtml);    
-    }
-    catch(err) {
-      console.log(err);
-    }
-  });
- 
-  
-  
+  ]);
 
-    
-     
+  const questions = [
+    {
+      type: "input",
+      message: "What is your name as an employee?",
+      name: "name",
+      validate: (input) => {
+        if (lodash.isEmpty(input)) {
+         return "Employee name is required.";
+        }
+      return true;
+      }
+    },
+    {
+      type: "input",
+      message: "What is your employee id?",
+      name: "id",
+      validate: (input) => {
+        if (lodash.isEmpty(input)) {
+         return "Employee id is required.";
+        }
+      return true;
+      }
+    },
+    {
+      type: "input",
+      message: "What is your email id?",
+      name: "email",
+      validate: (input) => {
+        if (lodash.isEmpty(input)) {
+        return "Employee email id is required.";
+      }
+      return true;
+      }
+    }
+  ];
 
+  switch(response.role) {
+    case "Engineer" :
+      questions.push( {
+        type: "input",
+        message: "What is your GitHub user name as an employee?",
+        name: "github",
+        validate: (input) => {
+         if (lodash.isEmpty(input)) {
+          return "Employee github user name  is required.";
+        }
+        return true;
+        }        
+      });
+      break;
+    case "Intern":
+      questions.push({
+        type: "input",
+        message: "What is your school name as an employee?",
+        name: "school",
+        validate: (input) => {
+         if (lodash.isEmpty(input)) {
+          return "Employee school name  is required.";
+        }
+        return true;
+        }
+      });
+      break;
+    case "Manager":
+      questions.push({
+        type: "input",
+        message: "What is your office number as an employee?",
+        name: "officeNumber",
+        validate: (input) => {
+          if (lodash.isEmpty(input)) {
+            return "Employee office number  is required.";
+          }
+        return true;
+        }
+      });
+      break;
+  }
+
+  const commonResponse = await inquirer.prompt(questions);
+
+  return {
+    role: response.role,
+    name: commonResponse.name,
+    id: commonResponse.id,
+    email: commonResponse.email,
+    github: commonResponse.github,
+    school: commonResponse.school,
+    officeNumber: commonResponse.officeNumber
+  };
+}
+
+async function getNumberOfEmployees() {
+  const response = await inquirer
+    .prompt([       
+      {
+        message: "How many employees you want to add in the team?",
+        name: "numberOfEmployees"
+      }
+    ]);
+
+  const numberOfEmployees = parseInt(response.numberOfEmployees);
+  const numberOfEmployeesArray = lodash.range(numberOfEmployees);
+  let employeeArray=[];
+
+  for (const count of numberOfEmployeesArray) {
+    const employee = await getInputsFromUser();
+
+    switch(employee.role) {
+      case "Engineer":
+        const engineer = new Engineer(employee.name, employee.id, employee.email, employee.github);
+        employeeArray.push(engineer);
+        break;
+      case "Intern":
+        const intern = new Intern(employee.name, employee.id, employee.email, employee.school);
+        employeeArray.push(intern);
+        break;
+      case "Manager":
+        const manager = new Manager(employee.name, employee.id, employee.email, employee.officeNumber);
+        employeeArray.push(manager);
+        break;
+    }
+  }
+
+  const renderHtml = render(employeeArray);
+  fs.appendFileSync(outputPath,renderHtml);  
+}
+
+
+
+
+getNumberOfEmployees();
