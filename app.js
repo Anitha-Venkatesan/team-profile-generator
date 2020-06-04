@@ -6,11 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const lodash = require("lodash");
 const render = require("./lib/htmlRenderer");
-
-
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
+//asynchronous function for getting user input
 async function getInputsFromUser() {
   const response = await inquirer
   .prompt([       
@@ -27,7 +23,7 @@ async function getInputsFromUser() {
       type: "input",
       message: "What is your name as an employee?",
       name: "name",
-      validate: (input) => {
+      validate: (input) => {// lodash validation method for validating user input
         if (lodash.isEmpty(input)) {
          return "Employee name is required.";
         }
@@ -60,7 +56,6 @@ async function getInputsFromUser() {
       }
     }
   ];
-
   switch(response.role) {
     case "Engineer" :
       questions.push( {
@@ -104,7 +99,7 @@ async function getInputsFromUser() {
   }
 
   const commonResponse = await inquirer.prompt(questions);
-
+  //returning the user response as an object  
   return {
     role: response.role,
     name: commonResponse.name,
@@ -115,7 +110,7 @@ async function getInputsFromUser() {
     officeNumber: commonResponse.officeNumber
   };
 }
-
+//asynchronous function for getting number of employees to add in the team
 async function getNumberOfEmployees() {
   const response = await inquirer
     .prompt([       
@@ -137,11 +132,11 @@ async function getNumberOfEmployees() {
   const numberOfEmployees = parseInt(response.numberOfEmployees);
   const numberOfEmployeesArray = lodash.range(numberOfEmployees);
   let employeeArray=[];
-
+  //for of loop for running the numberOfEmployeesArray sequentially
   for (const count of numberOfEmployeesArray) {
     const employee = await getInputsFromUser();
 
-    switch(employee.role) {
+    switch(employee.role) {//creating new objects for each constructor 
       case "Engineer":
         const engineer = new Engineer(employee.name, employee.id, employee.email, employee.github);
         employeeArray.push(engineer);
@@ -163,10 +158,11 @@ async function getNumberOfEmployees() {
 }
 
 var dir = './output';
-
+//creating a new directory 'output' for html file
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
+//deleting the output directory everytime before adding the team member
 try {
   fs.unlinkSync('./output/team.html');
   console.log('successfully deleted /output/team.html');
