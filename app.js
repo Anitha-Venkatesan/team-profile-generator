@@ -21,7 +21,7 @@ async function getInputsFromUser() {
   const questions = [
     {
       type: "input",
-      message: "What is your name as an employee?",
+      message: "What is your name ?",
       name: "name",
       validate: (input) => {// lodash validation method for validating user input
         if (lodash.isEmpty(input)) {
@@ -60,7 +60,7 @@ async function getInputsFromUser() {
     case "Engineer" :
       questions.push( {
         type: "input",
-        message: "What is your GitHub user name as an employee?",
+        message: "What is your GitHub user name?",
         name: "github",
         validate: (input) => {
          if (lodash.isEmpty(input)) {
@@ -73,7 +73,7 @@ async function getInputsFromUser() {
     case "Intern":
       questions.push({
         type: "input",
-        message: "What is your school name as an employee?",
+        message: "What is your school name?",
         name: "school",
         validate: (input) => {
          if (lodash.isEmpty(input)) {
@@ -86,7 +86,7 @@ async function getInputsFromUser() {
     case "Manager":
       questions.push({
         type: "input",
-        message: "What is your office number as an employee?",
+        message: "What is your office number?",
         name: "officeNumber",
         validate: (input) => {
           if (lodash.isEmpty(input)) {
@@ -165,7 +165,7 @@ if (!fs.existsSync(dir)){
 //deleting the output directory everytime before adding the team member
 try {
   fs.unlinkSync('./output/team.html');
-  console.log('successfully deleted /output/team.html');
+  //console.log('successfully deleted /output/team.html');
 } catch (err) {
   // handle the error
 }
