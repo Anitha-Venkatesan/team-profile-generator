@@ -42,6 +42,9 @@ async function getInputsFromUser() {
         if (lodash.isEmpty(input)) {
          return "Employee id is required.";
         }
+        if (isNaN(input)) {
+          return "Please enter valid number";
+        } 
       return true;
       }
     },
@@ -118,7 +121,16 @@ async function getNumberOfEmployees() {
     .prompt([       
       {
         message: "How many employees you want to add in the team?",
-        name: "numberOfEmployees"
+        name: "numberOfEmployees",
+        validate: (input) => {
+          if (lodash.isEmpty(input)) {
+           return "Please enter number of employees to add.";
+          }
+          if (isNaN(input)) {
+            return "Please enter valid number";
+          } 
+          return true;
+        }
       }
     ]);
 
