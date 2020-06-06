@@ -26,4 +26,7 @@ Command used to run the test
 
 ### Screenshots
 
-
+### References
+https://lodash.com/docs/4.17.15#includes
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+https://javascript.info/async-await
