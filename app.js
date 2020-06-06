@@ -29,6 +29,9 @@ async function getInputsFromUser() {
           if (lodash.isEmpty(input)) {
             return "Employee name is required.";
           }
+          if (!isNaN(input)) {
+            return "Please enter name in string";
+          }
           return true;
         }
       },
@@ -54,6 +57,9 @@ async function getInputsFromUser() {
           if (lodash.isEmpty(input)) {
             return "Employee email id is required.";
           }
+          if (!lodash.isMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            return "Enter valid email id.";
+          }
           return true;
         }
       }
@@ -68,6 +74,9 @@ async function getInputsFromUser() {
             if (lodash.isEmpty(input)) {
               return "Employee github user name  is required.";
             }
+            if (!isNaN(input)) {
+              return "Please enter github user name in string";
+            }
             return true;
           }
         });
@@ -80,6 +89,9 @@ async function getInputsFromUser() {
           validate: (input) => {
             if (lodash.isEmpty(input)) {
               return "Employee school name  is required.";
+            }
+            if (!isNaN(input)) {
+              return "Please enter school name in string";
             }
             return true;
           }
@@ -118,6 +130,9 @@ async function getManagerInfo() {
           if (lodash.isEmpty(input)) {
             return "Employee name is required.";
           }
+          if (!isNaN(input)) {
+            return "Please enter manager name in string";
+          }
           return true;
         }
       },
@@ -143,6 +158,9 @@ async function getManagerInfo() {
           if (lodash.isEmpty(input)) {
             return "Employee email id is required.";
           }
+          if (!lodash.isMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            return "Enter valid email id.";
+          }
           return true;
         }
       },
@@ -153,6 +171,9 @@ async function getManagerInfo() {
         validate: (input) => {
           if (lodash.isEmpty(input)) {
             return "Employee office number  is required.";
+          }
+          if (isNaN(input)) {
+            return "Please enter valid number";
           }
           return true;
         }
