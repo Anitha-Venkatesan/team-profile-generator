@@ -25,6 +25,9 @@ Command used to run the test
 * `npm run test`
 
 ### Screenshots
+ ![Tests](screenshots/tests.png)
+ ![Generated html](screenshots/Generated html page)
+ ![Html Page](screenshots/Output html page.png)
 
 ### References
 * https://lodash.com/docs/4.17.15#includes
