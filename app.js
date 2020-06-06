@@ -8,6 +8,7 @@ const lodash = require("lodash");
 const render = require("./lib/htmlRenderer");
 //asynchronous function for getting user input
 async function getInputsFromUser() {
+  console.log("");
   const response = await inquirer
     .prompt([
       {
@@ -22,7 +23,7 @@ async function getInputsFromUser() {
     const questions = [
       {
         type: "input",
-        message: "What is employee name ?",
+        message: "What is employee full name ?",
         name: "name",
         validate: (input) => {
           // lodash validation method for validating user input
@@ -109,16 +110,22 @@ async function getInputsFromUser() {
       school: commonResponse.school
     };
   } else {
+    console.log("Generated team.html page successfully");
+    console.log("");
     // if the response.role is not ["Engineer", "Intern"] then dont ask questions 
     return {
       role: response.role
-    };
+    };    
   }
 }
 
+
 //asynchronous function for getting manager details to add in the team
 async function getManagerInfo() {
+  console.log("");
   console.log("Build a team with your team member details");
+  console.log("------------------------------------------");
+  console.log("");
   console.log("Add a Manager to your team?");
   const responseManager = await inquirer
     .prompt([
