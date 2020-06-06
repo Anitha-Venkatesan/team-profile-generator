@@ -25,8 +25,11 @@ Command used to run the test
 * `npm run test`
 
 ### Screenshots
+ ![Tests](screenshots/tests.png)
+ ![Generated html](screenshots/Generated html page)
+ ![Html Page](screenshots/Output html page.png)
 
 ### References
-https://lodash.com/docs/4.17.15#includes
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
-https://javascript.info/async-await
+* https://lodash.com/docs/4.17.15#includes
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+* https://javascript.info/async-await
