@@ -28,7 +28,6 @@ Command used to run the test
  ![Tests](screenshots/tests.png)
  ![Generated html](screenshots/Generated-html-page.png)
  ![Html Page](screenshots/Output-html-page.png)
- ![Demo CLI Input](screenshots/CLI-Input-demo.mov)
  
 ### Updated Portfolio
 https://anitha-venkatesan.github.io/anitha-portfolio/
